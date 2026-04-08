@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { ExifData } from "@/lib/exif";
+import { useState } from "react";
 
 interface Props {
   meta: ExifData;
@@ -9,12 +9,11 @@ interface Props {
 
 export default function RawDump({ meta }: Props) {
   const [open, setOpen] = useState(false);
-
   return (
-    <div className="mt-4">
+    <div>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="text-xs text-neutral-300 underline decoration-dotted cursor-pointer hover:text-neutral-400 transition-colors"
+        className="text-xs text-neutral-500 underline decoration-dotted cursor-pointer hover:text-neutral-400 transition-colors"
       >
         {open ? "hide" : "show"} raw metadata dump
       </button>

@@ -1,11 +1,11 @@
 "use client";
 
+import { ExifData, FIELD_DEFS } from "@/lib/exif";
 import { useCallback, useState } from "react";
 import DropZone from "./drop-zone";
 import FieldToggles from "./field-toggles";
 import PhotoCard from "./photo-card";
 import RawDump from "./raw-dump";
-import { ExifData, FIELD_DEFS } from "@/lib/exif";
 
 interface PhotoState {
   src: string;
@@ -21,7 +21,7 @@ function formatBytes(bytes: number): string {
 }
 
 const DEFAULT_ACTIVE = new Set(
-  FIELD_DEFS.filter((f) => f.defaultOn).map((f) => f.key)
+  FIELD_DEFS.filter((f) => f.defaultOn).map((f) => f.key),
 );
 
 export default function MetaViewer() {
@@ -39,7 +39,7 @@ export default function MetaViewer() {
       const exifr = (await import("exifr")).default;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const raw = await (exifr.parse as any)(file, {
+      const raw = (await (exifr.parse as any)(file, {
         tiff: true,
         exif: true,
         gps: true,
@@ -49,25 +49,30 @@ export default function MetaViewer() {
         xmp: true,
         interop: true,
         translateValues: false,
-      }) as ExifData | undefined;
+      })) as ExifData | undefined;
 
       const meta: ExifData = raw ?? {};
 
       console.log("[Photo Metadata Viewer] Full EXIF dump:", meta);
-      console.log("[Photo Metadata Viewer] Total keys extracted:", Object.keys(meta).length);
+      console.log(
+        "[Photo Metadata Viewer] Total keys extracted:",
+        Object.keys(meta).length,
+      );
 
       const availableKeys = new Set(
-        FIELD_DEFS
-          .filter((f) => f.extract(meta) !== null)
-          .map((f) => f.key)
+        FIELD_DEFS.filter((f) => f.extract(meta) !== null).map((f) => f.key),
       );
       setAvailable(availableKeys);
 
       // keep only active fields that are actually available
       setActiveFields((prev) => {
         const next = new Set<string>();
-        DEFAULT_ACTIVE.forEach((k) => { if (availableKeys.has(k)) next.add(k); });
-        prev.forEach((k) => { if (availableKeys.has(k)) next.add(k); });
+        DEFAULT_ACTIVE.forEach((k) => {
+          if (availableKeys.has(k)) next.add(k);
+        });
+        prev.forEach((k) => {
+          if (availableKeys.has(k)) next.add(k);
+        });
         return next;
       });
 
@@ -105,11 +110,7 @@ export default function MetaViewer() {
 
   return (
     <div className="max-w-xl mx-auto px-6 py-12">
-
-
-      {!photo && !loading && (
-        <DropZone onFile={handleFile} />
-      )}
+      {!photo && !loading && <DropZone onFile={handleFile} />}
 
       {loading && (
         <div className="border border-neutral-100 rounded-xl px-8 py-16 text-center">
@@ -132,23 +133,25 @@ export default function MetaViewer() {
             onToggle={toggleField}
           />
 
-          <PhotoCard
-            src={photo.src}
-            filename={photo.filename}
-            filesize={photo.filesize}
-            meta={photo.meta}
-            activeFields={activeFields}
-            index={1}
-          />
-
-          <RawDump meta={photo.meta} />
-
-          <button
-            onClick={reset}
-            className="mt-6 text-xs text-neutral-300 hover:text-neutral-500 cursor-pointer transition-colors"
-          >
-            ← upload another photo
-          </button>
+          <div className="border border-neutral-100">
+            <PhotoCard
+              src={photo.src}
+              filename={photo.filename}
+              filesize={photo.filesize}
+              meta={photo.meta}
+              activeFields={activeFields}
+              index={1}
+            />
+          </div>
+          <div className="mt-4">
+            <button
+              onClick={reset}
+              className="text-xs text-neutral-500 underline decoration-dotted cursor-pointer hover:text-neutral-400 transition-colors"
+            >
+              Upload another photo
+            </button>
+            <RawDump meta={photo.meta} />
+          </div>
         </>
       )}
     </div>
