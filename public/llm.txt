@@ -1,0 +1,63 @@
+# Photo Metadata Extractor
+
+## Project Overview
+Photo Metadata Extractor is a free, browser-based tool that extracts and displays EXIF metadata from photographs. No server uploads—everything happens locally in your browser.
+
+## Core Functionality
+- **Drag & drop or select photos** from your device
+- **Extract full EXIF metadata** including camera settings, GPS location, timestamps
+- **Display in a clean Notion-style card interface**
+- **Toggle visibility** of individual metadata fields
+- **Export as PNG** for sharing or archiving
+
+## Supported Metadata Fields
+- Camera make and model
+- Lens information
+- Exposure settings (aperture, shutter speed, ISO)
+- Focal length
+- GPS coordinates (latitude/longitude)
+- Date/time taken
+- Image dimensions and orientation
+- File size and format
+- Color space
+- Flash settings
+- White balance
+- Software used
+
+## Technical Stack
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **EXIF Parsing**: exifr library (client-side)
+- **Deployment**: Vercel, Netlify, or any Node.js host
+
+## Usage
+1. Visit the homepage
+2. Drag a photo onto the drop zone or click to select
+3. View extracted metadata instantly
+4. Toggle fields on/off as needed
+5. Export the metadata card as PNG
+
+## API
+This is a client-side only application. No API endpoints are exposed.
+
+## Authentication
+None required. Fully public and anonymous.
+
+## Pricing
+Free and open source. No accounts, no limits.
+
+## Use Cases
+- Photographers reviewing camera settings
+- Journalists verifying photo provenance
+- Researchers analyzing metadata patterns
+- Anyone curious about what data their photos contain
+
+## Related Tools
+- EXIF viewers
+- Photo metadata editors
+- Image forensic tools
+- Privacy tools for stripping metadata
+
+## Contact
+[Repository URL on GitHub]
