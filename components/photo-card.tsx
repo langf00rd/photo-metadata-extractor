@@ -75,7 +75,7 @@ export default function PhotoCard({
         </div>
 
         {visibleFields.length > 0 && (
-          <div className="grid gap-4.5 px-3 grid-cols-3 p-3">
+          <div className="grid gap-4.5 grid-cols-3 p-5">
             {visibleFields.map((f, i) => {
               const val = f.extract(meta)!;
               return (
