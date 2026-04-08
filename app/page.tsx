@@ -22,7 +22,7 @@ export default function Home() {
           style={{ top: p.top, left: p.left }}
         >
           <Image
-            className="border border-neutral-200 rounded shadow-xl grayscale hover:grayscale-0 transition-transform scale-[1.4]"
+            className="border border-neutral-200 rounded shadow-xl grayscale hover:grayscale-0 transition-transform md:scale-[1.4]"
             src={p.src}
             alt=""
             loading="eager"
